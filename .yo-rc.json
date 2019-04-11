@@ -1,0 +1,35 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.akulinski.dcbot"
+        },
+        "jhipsterVersion": "5.8.2",
+        "applicationType": "monolith",
+        "baseName": "dcultimatebot",
+        "packageName": "com.akulinski.dcbot",
+        "packageFolder": "com/akulinski/dcbot",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "postgresql",
+        "prodDatabaseType": "postgresql",
+        "searchEngine": "elasticsearch",
+        "messageBroker": false,
+        "serviceDiscoveryType": "eureka",
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "YjA1NjUyMzlmYTNiZWJhOTlkODQzN2JhMTgzYTI4OTJlMWY1ZDQ2N2VkZDYyY2VjNDVhMmRmNWMwYWY2MDY1NDAzODE0OWQ0Y2Q4NzNkZTRlNzM0NTg3MzBkMWFlMjk1MTMwOGY5ZWNiOWY3YTFhNGY3M2VkNTBhZDg1MDJmNjk=",
+        "clientFramework": "angularX",
+        "useSass": false,
+        "clientPackageManager": "npm",
+        "testFrameworks": [],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": false
+    }
+}
