@@ -146,5 +146,7 @@ jhipster:
 
 
 discord:
-    token: NTY1OTM1MTYxOTA5MzEzNTU3.XK-aeA.kJi3Ees395TidyRjP-8xkiIeLDQ
+    token: ${DISCORD_TOKEN}
+
+
 
