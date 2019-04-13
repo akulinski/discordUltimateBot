@@ -1,0 +1,30 @@
+
+entity Message{
+	creationDate Instant,
+    content TextBlob required,
+    hashcode Integer
+}
+
+entity Author{
+	name String,
+    avatarUrl String,
+    creationDate Instant
+}
+
+entity Channel{
+	name String,
+    type String
+}
+
+
+relationship ManyToOne{
+	Message to Author
+}
+
+
+relationship ManyToOne{
+	Message to Channel
+}
+
+
+

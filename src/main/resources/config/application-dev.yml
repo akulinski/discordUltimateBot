@@ -44,7 +44,7 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/dcultimatebot
+        url: jdbc:postgresql://192.168.0.26:5432/dcultimatebot
         username: dcultimatebot
         password:
         hikari:
@@ -143,3 +143,8 @@ jhipster:
 # ===================================================================
 
 # application:
+
+
+discord:
+    token: NTY1OTM1MTYxOTA5MzEzNTU3.XK-aeA.kJi3Ees395TidyRjP-8xkiIeLDQ
+
