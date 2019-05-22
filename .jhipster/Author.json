@@ -1,0 +1,40 @@
+{
+    "name": "Author",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "avatarUrl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "message",
+            "otherEntityRelationshipName": "author",
+            "relationshipName": "message"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "command",
+            "otherEntityRelationshipName": "poster",
+            "relationshipName": "issuer"
+        }
+    ],
+    "changelogDate": "20190412135744",
+    "entityTableName": "author",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -71,14 +71,8 @@ public class TextChannelService {
 
         boolean dataLoaded = messageRepository.count() > 100;
 
-        for (String activeProfile : environment.getActiveProfiles()) {
-            if (activeProfile.equals("dev")) {
-                isDev = true;
-            }
-        }
-        if (isDev && !dataLoaded) {
-            loadDataToChannel(textChannel, channelRepository.findByName(textChannel.getName()).get());
-        }
+        loadDataToChannel(textChannel, channelRepository.findByName(textChannel.getName()).get());
+
     }
 
     private void loadDataToChannel(TextChannel textChannel, Channel channel) {

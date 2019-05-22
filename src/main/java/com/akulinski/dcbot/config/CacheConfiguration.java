@@ -46,6 +46,9 @@ public class CacheConfiguration {
             cm.createCache(com.akulinski.dcbot.domain.Author.class.getName() + ".messages", jcacheConfiguration);
             cm.createCache(com.akulinski.dcbot.domain.Channel.class.getName(), jcacheConfiguration);
             cm.createCache(com.akulinski.dcbot.domain.Channel.class.getName() + ".messages", jcacheConfiguration);
+            cm.createCache(com.akulinski.dcbot.domain.Author.class.getName() + ".issuers", jcacheConfiguration);
+            cm.createCache(com.akulinski.dcbot.domain.Action.class.getName(), jcacheConfiguration);
+            cm.createCache(com.akulinski.dcbot.domain.Command.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

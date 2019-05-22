@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-command-heading">Create or edit a Command</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!command.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="command.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_command">Command</label>
+                    <input type="text" class="form-control" name="command" id="field_command"
+                        [(ngModel)]="command.command" required/>
+                    <div [hidden]="!(editForm.controls.command?.dirty && editForm.controls.command?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.command?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_action">Action</label>
+                    <select class="form-control" id="field_action" name="action" [(ngModel)]="command.action">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="actionOption.id === command.action?.id ? command.action : actionOption" *ngFor="let actionOption of actions; trackBy: trackActionById">{{actionOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_channel">Channel</label>
+                    <select class="form-control" id="field_channel" name="channel" [(ngModel)]="command.channel" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="channelOption.id === command.channel?.id ? command.channel : channelOption" *ngFor="let channelOption of channels; trackBy: trackChannelById">{{channelOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_poster">Poster</label>
+                    <select class="form-control" id="field_poster" name="poster" [(ngModel)]="command.poster" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="authorOption.id === command.poster?.id ? command.poster : authorOption" *ngFor="let authorOption of authors; trackBy: trackAuthorById">{{authorOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

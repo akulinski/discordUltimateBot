@@ -1,30 +1,48 @@
 
-entity Message{
-	creationDate Instant,
-    content TextBlob required,
-    hashcode Integer
+entity Message {
+  creationDate Instant,
+  content TextBlob required,
+  hashcode Integer
+}
+entity Author {
+  name String,
+  avatarUrl String,
+  creationDate Instant
+}
+entity Channel {
+  name String,
+  type String
 }
 
-entity Author{
-	name String,
-    avatarUrl String,
+relationship OneToMany {
+  Author{message} to Message{author},
+  Channel{message} to Message{channel}
+}
+
+
+enum ActionType {
+    COMMAND, TEXTMESSAGE, USERJOINED
+}
+
+  entity Action {
+    action ActionType required,
+    description String,
     creationDate Instant
-}
+  }
 
-entity Channel{
-	name String,
-    type String
-}
-
-
-relationship ManyToOne{
-	Message to Author
-}
-
+  entity Command{
+    command String required,
+    creationDate Instant
+  }
 
 relationship ManyToOne{
-	Message to Channel
+	Command{channel} to Channel
 }
 
+ relationship OneToOne{
+ 	Command to Action
+ }
 
-
+ relationship ManyToOne{
+ 	Command{poster} to Author{issuer}
+ }

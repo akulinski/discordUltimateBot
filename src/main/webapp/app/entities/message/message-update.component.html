@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-message-heading">Create or edit a Message</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!message.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="message.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creationDate">Creation Date</label>
+                    <div class="d-flex">
+                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_content">Content</label>
+                    <textarea class="form-control" name="content" id="field_content"
+                        [(ngModel)]="message.content" required></textarea>
+                    <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.content?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_hashcode">Hashcode</label>
+                    <input type="number" class="form-control" name="hashcode" id="field_hashcode"
+                        [(ngModel)]="message.hashcode" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_author">Author</label>
+                    <select class="form-control" id="field_author" name="author" [(ngModel)]="message.author" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="authorOption.id === message.author?.id ? message.author : authorOption" *ngFor="let authorOption of authors; trackBy: trackAuthorById">{{authorOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_channel">Channel</label>
+                    <select class="form-control" id="field_channel" name="channel" [(ngModel)]="message.channel" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="channelOption.id === message.channel?.id ? message.channel : channelOption" *ngFor="let channelOption of channels; trackBy: trackChannelById">{{channelOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

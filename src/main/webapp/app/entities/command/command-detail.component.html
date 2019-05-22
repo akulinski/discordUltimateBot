@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="command">
+            <h2><span>Command</span> {{command.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Command</span></dt>
+                <dd>
+                    <span>{{command.command}}</span>
+                </dd>
+                <dt><span>Creation Date</span></dt>
+                <dd>
+                    <span>{{command.creationDate}}</span>
+                </dd>
+                <dt><span>Action</span></dt>
+                <dd>
+                    <div *ngIf="command.action">
+                        <a [routerLink]="['/action', command.action?.id, 'view']">{{command.action?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Channel</span></dt>
+                <dd>
+                    <div *ngIf="command.channel">
+                        <a [routerLink]="['/channel', command.channel?.id, 'view']">{{command.channel?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Poster</span></dt>
+                <dd>
+                    <div *ngIf="command.poster">
+                        <a [routerLink]="['/author', command.poster?.id, 'view']">{{command.poster?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/command', command.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

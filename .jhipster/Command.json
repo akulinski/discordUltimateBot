@@ -1,0 +1,49 @@
+{
+    "name": "Command",
+    "fields": [
+        {
+            "fieldName": "command",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "action",
+            "otherEntityRelationshipName": "command",
+            "relationshipName": "action",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "channel",
+            "otherEntityRelationshipName": "command",
+            "relationshipName": "channel",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "author",
+            "otherEntityRelationshipName": "issuer",
+            "relationshipName": "poster",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190413095535",
+    "entityTableName": "command",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,39 @@
+{
+    "name": "Action",
+    "fields": [
+        {
+            "fieldName": "action",
+            "fieldType": "ActionType",
+            "fieldValues": "COMMAND,TEXTMESSAGE,USERJOINED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "command",
+            "otherEntityRelationshipName": "action",
+            "relationshipName": "command",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20190413095534",
+    "entityTableName": "action",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

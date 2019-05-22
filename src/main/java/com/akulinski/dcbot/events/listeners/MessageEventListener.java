@@ -1,17 +1,15 @@
 package com.akulinski.dcbot.events.listeners;
 
-import com.akulinski.dcbot.domain.Author;
-import com.akulinski.dcbot.domain.Channel;
-import com.akulinski.dcbot.domain.Message;
-import com.akulinski.dcbot.repository.AuthorRepository;
-import com.akulinski.dcbot.repository.ChannelRepository;
-import com.akulinski.dcbot.repository.MessageRepository;
+import com.akulinski.dcbot.domain.*;
+import com.akulinski.dcbot.domain.enumeration.ActionType;
+import com.akulinski.dcbot.repository.*;
+import com.akulinski.dcbot.repository.search.ActionSearchRepository;
+import com.akulinski.dcbot.repository.search.CommandSearchRepository;
 import com.akulinski.dcbot.service.CommandService;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.ZoneId;
@@ -25,25 +23,62 @@ public class MessageEventListener extends ListenerAdapter {
 
     private final ChannelRepository channelRepository;
 
+
     private final MessageRepository messageRepository;
 
     private final AuthorRepository authorRepository;
 
+    private final CommandRepository commandRepository;
+
+    private final CommandSearchRepository commandSearchRepository;
+
     private final CommandService commandService;
 
-    public MessageEventListener(ChannelRepository channelRepository, MessageRepository messageRepository, AuthorRepository authorRepository, CommandService commandService) {
+    private final ActionSearchRepository actionSearchRepository;
+
+    private final ActionRepository actionRepository;
+
+    public MessageEventListener(ChannelRepository channelRepository, MessageRepository messageRepository, AuthorRepository authorRepository, CommandService commandService, CommandRepository commandRepository, CommandSearchRepository commandSearchRepository, ActionSearchRepository actionSearchRepository, ActionRepository actionRepository) {
         this.channelRepository = channelRepository;
         this.messageRepository = messageRepository;
         this.authorRepository = authorRepository;
         this.commandService = commandService;
+        this.commandRepository = commandRepository;
+        this.commandSearchRepository = commandSearchRepository;
+        this.actionSearchRepository = actionSearchRepository;
+        this.actionRepository = actionRepository;
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         super.onMessageReceived(event);
 
-        if (event.getMessage().getContentStripped().startsWith("#")){
+        if (event.getMessage().getContentStripped().startsWith("#")) {
+
             commandService.handleCommand(event.getMessage());
+
+            Action action = new Action();
+            action.setDescription(event.getMessage().getContentRaw());
+            action.setAction(ActionType.TEXTMESSAGE);
+            action.setCreationDate(event.getMessage().getCreationTime().toInstant());
+            actionRepository.save(action);
+            actionSearchRepository.save(action);
+
+
+            Author author = createAuthorIfDoesNotExist(event);
+            Channel channel = createChannelIfDoesNotExist(event);
+
+            Command command = new Command();
+            command.setPoster(author);
+            command.setChannel(channel);
+
+
+            command.setPoster(author);
+            command.setCommand(event.getMessage().getContentRaw());
+            command.setCreationDate(event.getMessage().getCreationTime().toInstant());
+
+            commandRepository.save(command);
+            commandSearchRepository.save(command);
         }
 
         Date date = Date.from(event.getMessage().getCreationTime().toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
